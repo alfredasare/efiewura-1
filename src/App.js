@@ -23,6 +23,7 @@ import {fetchPropertiesStart} from "./redux/properties/properties.actions";
 import DashboardContainer from "./pages/dashboard/dashboard.container";
 import EditSpaceContainer from "./pages/edit-property/edit-space.container";
 import {selectIsPropertyUploaded} from "./redux/property-upload/property-upload.selectors";
+import 'tachyons';
 
 const App = ({checkUserSession, currentUser, fetchPropertiesStart, isPropertyUploaded}) => {
 
