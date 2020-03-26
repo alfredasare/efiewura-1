@@ -7,6 +7,7 @@ import {selectDistricts, selectRegions} from "../../redux/static-data/static-dat
 import {selectProperty} from "../../redux/properties/properties.selectors";
 import {propertyEditStart} from "../../redux/property-upload/property-upload.actions";
 import {
+    editSpaceValidate,
     errorObject, provideSpaceValidate,
     validateAddress,
     validateContact,
@@ -71,7 +72,7 @@ const EditSpace = ({regions, districts, property, history, propertyEditStart}) =
         validateAddress(event);
         setError();
     };
-    
+
 
     const makeRegionValid = () => {
         setErrorMessages({...errorMessages, regionError: ''});
@@ -95,17 +96,14 @@ const EditSpace = ({regions, districts, property, history, propertyEditStart}) =
 
     const handleSubmit = event => {
         event.preventDefault();
-        const isValid = provideSpaceValidate(event);
+        const isValid = editSpaceValidate(event);
         setError();
 
         if (isValid) {
             console.log(propertyDetails);
             propertyEditStart(propertyDetails);
             history.push(`/dashboard`);
-        } else {
-            alert('something is wrong');
         }
-
     };
 
     const handleChange = event => {
