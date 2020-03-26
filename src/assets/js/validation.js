@@ -527,3 +527,12 @@ export const provideSpaceValidate = event => {
         validatePrice(undefined, event, 'price') &&
         validateRadioButtons(event, 'negotiation_status', 'negotiationError');
 };
+
+export const editSpaceValidate = event => {
+    return validateName(undefined, event.target[0]) && validateMail(undefined, event.target[1])
+        && validateContact(undefined, event.target[2]) && validateAddress(undefined, event.target[3])
+        && validateDescription(undefined, event, 'description')
+        && validateRegion(event, 'region') && validateTown(undefined, event, 'town') &&
+        validatePrice(undefined, event, 'price') &&
+        validateRadioButtons(event, 'negotiation_status', 'negotiationError');
+};
