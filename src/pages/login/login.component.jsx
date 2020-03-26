@@ -42,11 +42,7 @@ const LoginPage = ({googleSignInStart, emailSignInStart, error, loader}) => {
         setError();
 
         if (isValid) {
-            console.log(userCredentials);
-            alert('login success');
             emailSignInStart(email, password);
-        }else{
-            console.log('something wrong!');
         }
     };
 
