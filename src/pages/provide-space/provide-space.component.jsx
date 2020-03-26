@@ -37,9 +37,9 @@ const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, distric
         price: '',
         negotiation_status: '',
         date_uploaded: new Date().toString(),
-        ad_status: '',
-        user_id: '',
-        username: '',
+        ad_status: 'Hosted',
+        user_id: null,
+        username: null,
         other_images_url: null,
         main_image_url: '',
     });
@@ -67,7 +67,7 @@ const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, distric
         setErrorMessages({...errorMessages, [error]: message});
     };
 
-    const user_pic_path = '../../assets/img/user.png';
+    const user_pic_path = require('../../assets/img/user.png');
     const checkProfilePic = () => {
       if (propertyDetails.profile_img === ''){
           setPropertyDetails({...propertyDetails, profile_img: user_pic_path});
@@ -121,20 +121,6 @@ const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, distric
         setError();
     };
 
-    const goCart = () => {
-        setPropertyDetails({
-            ...propertyDetails,
-            ad_status: 'Pending',
-            user_id: currentUser.id,
-            username: currentUser.displayName
-        });
-        while (propertyDetails.user_id === ''){
-
-        }
-        console.log(propertyDetails);
-        propertyStorageUploadStart(propertyDetails);
-    };
-
     const handleSubmit = event => {
         event.preventDefault();
         if (agreeCheck) {
@@ -143,7 +129,8 @@ const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, distric
 
             if (isValid) {
                 checkProfilePic();
-                goCart();
+                console.log(propertyDetails);
+                propertyStorageUploadStart(propertyDetails);
             } else {
                 alert('something is wrong');
             }
@@ -155,6 +142,8 @@ const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, distric
         setPropertyDetails({
             ...propertyDetails,
             [name]: value,
+            user_id: currentUser && currentUser.id,
+            username: currentUser && currentUser.displayName,
         });
         if (event.target.name === 'name'){
             validatePropertyName(event);
