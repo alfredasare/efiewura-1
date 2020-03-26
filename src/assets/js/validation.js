@@ -527,5 +527,3 @@ export const provideSpaceValidate = event => {
         validatePrice(undefined, event, 'price') &&
         validateRadioButtons(event, 'negotiation_status', 'negotiationError');
 };
-
-
