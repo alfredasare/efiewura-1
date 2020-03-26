@@ -1,0 +1,14 @@
+.form-head {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+#contact-form {
+  width: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+  #contact-form {
+    width: 90%;
+  }
+}
