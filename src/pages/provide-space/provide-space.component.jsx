@@ -19,6 +19,8 @@ import {
     validateName, validatePrice, validateTown
 } from "../../assets/js/validation";
 
+
+
 const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, districts, isUploading}) => {
 
     const [agreeCheck, setAgreeCheck] = useState(false);
