@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 import {removePropertyStart} from "../../redux/properties/properties.actions";
 import {createStructuredSelector} from "reselect";
 import {selectPropertiesForDisplay} from "../../redux/properties/properties.selectors";
-import {teal} from "color-name";
 
 const DashboardAdCard = ({property, removePropertyStart, allProperties}) => {
 
