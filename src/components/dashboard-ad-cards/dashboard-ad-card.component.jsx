@@ -29,7 +29,8 @@ const DashboardAdCard = ({property, removePropertyStart, allProperties}) => {
         difference_ms = difference_ms / 60;
         let hours = Math.floor(difference_ms % 24);
         // return days + ' days, ' + hours + ' hours, ' + minutes + ' minutes, and ' + seconds + ' seconds';
-        return Math.floor(difference_ms / 24);
+        return Math.floor(difference_ms / 24) + 1;
+    //    add one up to round up the remaining hours and minutes ...
     };
 
     let myDate = [];
