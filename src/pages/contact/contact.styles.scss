@@ -19,13 +19,13 @@
   align-items: center;
   height: 50vh;
   width: 80%;
-  background: rgba(0, 77, 64, 0.50);
+  background: rgba(0, 77, 64, 0.70);
 }
 
 .font-style{
   color: #DE5246;
   font-size: 50px;
-  padding:0 30px;
+  padding:20px 30px;
   cursor: pointer;
 }
 .font-style:hover{
@@ -45,13 +45,18 @@
   color: #1DA1F2;
 }
 .line{
-  width: 50%;
+  width: 60%;
   height: 1px;
   background-image: linear-gradient(to right, #004D40, white );
   margin: auto;
 }
 .second-line{
   background-image: linear-gradient(to left, #004D40, white );
+}
+.h4 {
+  height: 2rem !important;
+  color: #004D40;
+  font-weight: bold;
 }
 
 
