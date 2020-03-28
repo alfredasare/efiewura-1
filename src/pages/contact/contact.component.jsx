@@ -3,6 +3,7 @@ import './contact.styles.scss';
 import './animate.css';
 import Modal from "react-bootstrap/Modal";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import Navbar from "../../components/navbar/navbar.component";
 
 const ContactPage = () => {
 
@@ -26,11 +27,12 @@ const ContactPage = () => {
 
     return (
         <>
+            <Navbar/>
             <div className='main-body'>
                 <div className='contact-container'>
                     <h1 className='main-header'>Reach EFIEWURA</h1>
                     <div className='line animated slideInLeft'/>
-                    <div>
+                    <div className='icon-container'>
                         <a href="mailto:efiewura18@gmail.com" target="_blank"><i className='fa fa-envelope font-style animated bounceIn'/></a>
                         <i className='fa fa-phone font-style phone animated bounceIn delay-1s' onClick={showModal} id='phone'/>
                         <a href="#"><i className='fa fa-facebook font-style fb animated bounceIn delay-2s'/></a>
@@ -41,7 +43,7 @@ const ContactPage = () => {
                     <div className='line second-line animated slideInRight'/>
                     <Modal show={isOpen} onHide={hideModal} size="md"
                            aria-labelledby="contained-modal-title-vcenter"
-                           centered>
+                           >
                         <Modal.Header closeButton>
                             <Modal.Title id="contained-modal-title-vcenter" >
                                 {alert.heading}

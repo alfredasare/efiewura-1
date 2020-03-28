@@ -5,6 +5,8 @@ import DashboardCardCollection from "../../components/dashboard-card-collection/
 import {fetchPropertiesStart} from "../../redux/properties/properties.actions";
 import {createStructuredSelector} from "reselect";
 import {selectIsPropertyEdited} from "../../redux/property-upload/property-upload.selectors";
+import Navbar from "../../components/navbar/navbar.component";
+import Footer from "../../components/footer/footer.component";
 
 const Dashboard = ({fetchPropertiesStart, isPropertyEdited}) => {
 
@@ -14,9 +16,11 @@ const Dashboard = ({fetchPropertiesStart, isPropertyEdited}) => {
 
     return (
         <div id="dashboard" className="container">
+            <Navbar/>
             <h2>Manage all your ads from your dashboard</h2>
             <h2 style={{marginTop: '50px'}}>Uploaded Ads</h2>
             <DashboardCardCollection/>
+            <Footer/>
         </div>
     );
 };
