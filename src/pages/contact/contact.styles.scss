@@ -1,4 +1,5 @@
 .main-body{
+  position: relative;
   color: white;
   display: flex;
   flex-direction: column;
@@ -7,6 +8,8 @@
   height: 100vh;
   width: 100%;
   background-image: url("../../assets/img/efiewura_contact_bg.jpg");
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -18,8 +21,20 @@
   justify-content: center;
   height: 50vh;
   width: 80%;
-  background: rgba(0, 77, 64, 0.70);
+  background: rgba(0, 77, 64, 0.4);
+  //background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 1px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 20px;
+  text-align: center;
 }
+
 .icon-container{
   width: 80%;
   display: flex;
