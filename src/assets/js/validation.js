@@ -1,7 +1,7 @@
 let message = '';
 let errorReturn = '';
 let proof_password;
-let confirm_pass;
+
 let focusable = false;
 
 const checkFocus = field => {
@@ -216,15 +216,12 @@ export const validateConfirmPassword = (event, mainEvent) => {
     }
     if (confirmPassword.trim() === '') {
         setInvalid(field, 'Please enter password', error);
-        confirm_pass = confirmPassword;
         return false;
     } else if (confirmPassword !== proof_password) {
         setInvalid(field, 'Passwords do not match', error);
-        confirm_pass = confirmPassword;
         return false;
     } else {
         setValid(field, error);
-        confirm_pass = confirmPassword;
         return true;
     }
 };

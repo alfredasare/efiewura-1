@@ -8,7 +8,7 @@ import {selectProperty} from "../../redux/properties/properties.selectors";
 import {propertyEditStart} from "../../redux/property-upload/property-upload.actions";
 import {
     editSpaceValidate,
-    errorObject, provideSpaceValidate,
+    errorObject,
     validateAddress,
     validateContact,
     validateDescription,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
@@ -12,8 +12,6 @@ import ProvideSpace from "./pages/provide-space/provide-space.component";
 import SearchPage from "./pages/search/search.component";
 import SignUp from "./pages/signup/signup.component";
 import TermsPage from "./pages/terms/terms.component";
-import Navbar from "./components/navbar/navbar.component";
-import Footer from "./components/footer/footer.component";
 import SearchResultsPage from "./pages/search-results/search-results.component";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "./redux/user/user.selectors";

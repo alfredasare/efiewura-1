@@ -39,7 +39,7 @@ const SignUp = ({signUpStart, error, loader}) => {
         addressError: '',
     });
 
-    const {displayName, email, password, confirmPassword, contact, address} = userCredentials;
+    const {displayName, email, password, contact, address} = userCredentials;
 
     const setError = () => {
         let error = errorObject.error;

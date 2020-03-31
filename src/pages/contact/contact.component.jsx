@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './contact.styles.scss';
 import './animate.css';
 import CustomButton from "../../components/custom-button/custom-button.component";
@@ -24,7 +24,7 @@ const ContactPage = () => {
                         <h5>Mail Efiewura</h5>
                         <p>Want to send us feedback? Just send a mail to Efiewura and we will respond as soon as
                             possible.</p>
-                        <a href="mailto:efiewura18@gmail.com" target='_blank'><CustomButton>send mail</CustomButton></a>
+                        <a href="mailto:efiewura18@gmail.com" target='_blank' rel="noopener noreferrer"><CustomButton>send mail</CustomButton></a>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-4 col-lg-3 card'>
                         <i className='fa fa-comments animated jello delay-1s'/>
