@@ -1,8 +1,6 @@
 import React from "react";
 import './about.styles.scss';
 import Header from "../../components/header/header.component";
-import Navbar from "../../components/navbar/navbar.component";
-import Footer from "../../components/footer/footer.component";
 
 const AboutPage = () => {
 
@@ -10,7 +8,6 @@ const AboutPage = () => {
 
     return (
         <>
-            <Navbar/>
             <Header title="About EFIEWURA" imageUrl={url}/>
 
             <section style={{marginBottom: '100px'}} className="container">
@@ -42,7 +39,6 @@ const AboutPage = () => {
                     </div>
                 </div>
             </section>
-            <Footer/>
         </>
     );
 };

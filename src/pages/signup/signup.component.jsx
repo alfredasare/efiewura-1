@@ -13,21 +13,20 @@ import {
     errorObject, signUpValidate,
     validateAddress,
     validateConfirmPassword,
-    validateContact, validateMail, validateName,
+    validateContact, validateImages, validateMail, validateName,
     validateSpecialPassword
 } from "../../assets/js/validation";
-import Navbar from "../../components/navbar/navbar.component";
-import Footer from "../../components/footer/footer.component";
 
 const SignUp = ({signUpStart, error, loader}) => {
 
     const [userCredentials, setUserCredentials] = useState({
-        displayName: '',
+        displayName : '',
         email: '',
         password: '',
         confirmPassword: '',
         contact: '',
-        address: ''
+        address: '',
+        profile_img: ''
     });
 
     const [errorMessages, setErrorMessages] = useState({
@@ -39,7 +38,7 @@ const SignUp = ({signUpStart, error, loader}) => {
         addressError: '',
     });
 
-    const {displayName, email, password, contact, address} = userCredentials;
+    const {displayName, email, password, confirmPassword, contact, address, profile_img} = userCredentials;
 
     const setError = () => {
         let error = errorObject.error;
@@ -47,7 +46,7 @@ const SignUp = ({signUpStart, error, loader}) => {
         setErrorMessages({...errorMessages, [error]: message});
     };
 
-    const validateSignUpName = event => {
+    const validateSignUpName = event =>{
         validateName(event);
         setError();
     };
@@ -72,100 +71,115 @@ const SignUp = ({signUpStart, error, loader}) => {
         setError();
     };
 
-    const handleSubmit = async event => {
+    const handleSubmit = event => {
         event.preventDefault();
         const isValid = signUpValidate(event);
         setError();
 
         if (isValid) {
-            signUpStart({displayName, email, password, contact, address});
+            console.log({displayName, email, password, contact, address, profile_img});
         }
+        signUpStart({displayName, email, password, contact, address, profile_img});
     };
 
     const handleChange = event => {
         const {name, value} = event.target;
-        if (event.target.name === 'displayName') {
+        if (event.target.name === 'displayName'){
             validateSignUpName(event);
-        } else if (event.target.name === 'email') {
+        }else if (event.target.name === 'email'){
             validateSignUpMail(event);
-        } else if (event.target.name === 'password') {
+        }else if (event.target.name === 'password'){
             validateSignUpPassword(event);
-        } else if (event.target.name === 'confirmPassword') {
+        }else if (event.target.name === 'confirmPassword'){
             validateSignUpConfirmPassword(event);
-        } else if (event.target.name === 'contact') {
+        }else if (event.target.name === 'contact'){
             validateSignUpContact(event);
-        } else if (event.target.name === 'address') {
+        }else if (event.target.name === 'address'){
             validateSignUpAddress(event);
         }
         setUserCredentials({...userCredentials, [name]: value});
     };
 
+    const handleFileChange = event => {
+        const name = event.target.name;
+        const file = event.target.files[0];
+        setUserCredentials({
+            ...userCredentials,
+            [name]: file
+        });
+    };
+
     return (
-        <>
-            <Navbar/>
-            <main style={{marginTop: '100px'}} className="container">
-                <div className="row">
-                    <div className="col-sm-12 offset-sm-0 col-md-8 offset-md-2 animated fadeIn delay-1s">
-                        <div style={{textAlign: 'justify', fontSize: '18px', marginBottom: '50px'}}>
-                            <p style={{marginTop: '30px'}} className="property-head fadeInUp" data-wow-delay="0.3s">Sign
-                                Up
-                                For
-                                EFIEWURA</p>
-                            <p style={{fontSize: '1.1em'}} className="fadeInUp" data-wow-delay="0.5s">
-                                Sign up to EFIEWURA so you can have access to more functionality and also, so that we
-                                can connect with you.
-                            </p>
-                            <p style={{fontSize: '1.1em'}} className="fadeInUp" data-wow-delay="0.7s">Already have an
-                                account?
-                                Just
-                                <NavLink style={{fontWeight: 'bold'}} id="login-link" to="/login"> Login</NavLink>
-                            </p>
-                        </div>
-                        <form onSubmit={handleSubmit} style={{marginBottom: '70px'}}
-                              className="form-horizontal custom-form">
-                            <h5 className="custom-form-subhead">Please enter your details</h5>
-                            {
-                                error ?
-                                    <h5 style={{color: 'red'}}>Something went wrong. Make sure you typed in the right
-                                        email and password</h5> : <></>
-                            }
-                            <FormInputText handleChange={handleChange} type='text' name='displayName' id='displayName'
-                                           label='Name' onBlur={validateSignUpName}/>
-                            <p className='red o-100'>{errorMessages.nameError}</p>
-
-                            <FormInputText handleChange={handleChange} type='email' name='email' id='email'
-                                           label='Email' onBlur={validateSignUpMail}/>
-                            <p className='red o-100'>{errorMessages.mailError}</p>
-
-                            <FormInputText handleChange={handleChange} type='password' name='password' id='password'
-                                           label='Password' onBlur={validateSignUpPassword}/>
-                            <p className='red o-100'>{errorMessages.passwordError}</p>
-
-                            <FormInputText handleChange={handleChange} type='password' name='confirmPassword'
-                                           id='confirmPassword'
-                                           label='Confirm Password' onBlur={validateSignUpConfirmPassword}/>
-                            <p className='red o-100'>{errorMessages.confirmPasswordError}</p>
-
-                            <FormInputText handleChange={handleChange} type='tel' name='contact' id='contact'
-                                           label='Contact' onBlur={validateSignUpContact}/>
-                            <p style={{color: 'red'}}>{errorMessages.contactError}</p>
-
-                            <FormInputText handleChange={handleChange} type='text' name='address' id='address'
-                                           label='Address' onBlur={validateSignUpAddress}/>
-                            <p className='red o-100'>{errorMessages.addressError}</p>
-
-                            <CustomButtonsContainer>
-                                {
-                                    loader ? <LoadingSpinner/> : <CustomButton type='submit'>Sign Up</CustomButton>
-                                }
-                                <CustomButton type='reset' inverted="true">Reset</CustomButton>
-                            </CustomButtonsContainer>
-                        </form>
+        <main style={{marginTop: '100px'}} className="container">
+            <div className="row">
+                <div className="col-sm-12 offset-sm-0 col-md-8 offset-md-2 animated fadeIn delay-1s">
+                    <div style={{textAlign: 'justify', fontSize: '18px', marginBottom: '50px'}}>
+                        <p style={{marginTop: '30px'}} className="property-head fadeInUp" data-wow-delay="0.3s">Sign Up
+                            For
+                            EFIEWURA</p>
+                        <p style={{fontSize: '1.1em'}} className="fadeInUp" data-wow-delay="0.5s">
+                            Sign up to EFIEWURA so you can have access to more functionality and also, so that we
+                            can connect with you.
+                        </p>
+                        <p style={{fontSize: '1.1em'}} className="fadeInUp" data-wow-delay="0.7s">Already have an
+                            account?
+                            Just
+                            <NavLink style={{fontWeight: 'bold'}} id="login-link" to="/login"> Login</NavLink>
+                        </p>
                     </div>
+                    <form onSubmit={handleSubmit} style={{marginBottom: '70px'}} className="form-horizontal custom-form">
+                        <h5 className="custom-form-subhead">Please enter your details</h5>
+                        {
+                            error ? <h5 style={{color: 'red'}}>Something went wrong. Make sure you typed in the right email and password</h5> : <></>
+                        }
+                        <FormInputText handleChange={handleChange} type='text' name='displayName' id='displayName' label='Name' onBlur={validateSignUpName}/>
+                        <p className='red o-100'>{errorMessages.nameError}</p>
+
+                        <FormInputText handleChange={handleChange} type='email' name='email' id='email' label='Email' onBlur={validateSignUpMail}/>
+                        <p className='red o-100'>{errorMessages.mailError}</p>
+
+                        <input onChange={handleFileChange} name="profile_img" type="file" id="single-file-upload"
+                               hidden="hidden" accept='image/*'/>
+                        <label className="upload-button-label" htmlFor="single-file-upload">
+                            <div id="profileUpBtn" className="btn btn-fab btn-round btn-primary">
+                                <i className="material-icons">attach_file</i>
+                            </div>
+                            <div className="upload-text">Click here to upload a profile image</div>
+                        </label>
+                        {
+                            profile_img
+                                ? <div className="uploaded-images">
+                                    <h5>You uploaded:</h5>
+                                    <ul>
+                                        <li>{profile_img.name}</li>
+                                    </ul>
+                                </div>
+                                : <></>
+                        }
+
+                        <FormInputText handleChange={handleChange} type='password' name='password' id='password' label='Password' onBlur={validateSignUpPassword}/>
+                        <p className='red o-100'>{errorMessages.passwordError}</p>
+
+                        <FormInputText handleChange={handleChange} type='password' name='confirmPassword' id='confirmPassword'
+                                       label='Confirm Password' onBlur={validateSignUpConfirmPassword}/>
+                        <p className='red o-100'>{errorMessages.confirmPasswordError}</p>
+
+                        <FormInputText handleChange={handleChange} type='tel' name='contact' id='contact' label='Contact' onBlur={validateSignUpContact}/>
+                        <p style={{color: 'red'}}>{errorMessages.contactError}</p>
+
+                        <FormInputText handleChange={handleChange} type='text' name='address' id='address' label='Address' onBlur={validateSignUpAddress}/>
+                        <p className='red o-100'>{errorMessages.addressError}</p>
+
+                        <CustomButtonsContainer>
+                            {
+                                loader ? <LoadingSpinner/> : <CustomButton type='submit'>Sign Up</CustomButton>
+                            }
+                            <CustomButton type='reset' inverted="true">Reset</CustomButton>
+                        </CustomButtonsContainer>
+                    </form>
                 </div>
-            </main>
-            <Footer/>
-        </>
+            </div>
+        </main>
     );
 };
 

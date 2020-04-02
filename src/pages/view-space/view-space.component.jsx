@@ -1,18 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from 'react-redux';
 import Viewer from 'react-viewer';
 import './view-space.styles.scss';
 import {selectProperty} from "../../redux/properties/properties.selectors";
-import Navbar from "../../components/navbar/navbar.component";
-import Footer from "../../components/footer/footer.component";
 
 const ViewSpace = ({property}) => {
 
-    const [ visible, setVisible ] = React.useState(false);
+    const [visible, setVisible] = useState(false);
+    const defaultProfile = 'https://firebasestorage.googleapis.com/v0/b/efiewura-db-60044.appspot.com/o/site-images%2Favatar-placeholder_v0ecjm.png?alt=media&token=ec952423-c148-409e-ab6e-15bf295424bd';
+    const profile_img = property.profile_img ? property.profile_img : defaultProfile;
 
     return (
         <>
-            <Navbar/>
             <section className="container" id="view-listing-head">
                 <div className="main-pic animated fadeIn delay-1s">
                     <img className="img-raised rounded img-fluid" src={property.main_image_url}
@@ -28,12 +27,15 @@ const ViewSpace = ({property}) => {
                         style={{fontWeight: '400'}}>Price :</span> Ghc {property.price} &#9679;
                         {property.negotiation_status}</p>
                     <h3>Description</h3>
-                    <p style={{fontSize: '1.1em'}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                        consequuntur, ducimus
-                        laboriosam modi mollitia
-                        nulla ratione similique sunt tempora ullam. Amet aspernatur atque debitis non praesentium
-                        quaerat quis
-                        similique veniam.
+                    <p style={{fontSize: '1.1em'}}>
+                        {
+                            property.description ? property.description : `Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
+                            consequuntur, ducimus
+                            laboriosam modi mollitia
+                            nulla ratione similique sunt tempora ullam. Amet aspernatur atque debitis non praesentium
+                            quaerat quis
+                            similique veniam.`
+                        }
                     </p>
                 </div>
             </section>
@@ -47,7 +49,9 @@ const ViewSpace = ({property}) => {
                 {
                     property.other_images_url.map((image_url) => {
                         return (
-                            <div onClick={() => { setVisible(true); } } key={image_url.id + 300} className="other-pic-item">
+                            <div onClick={() => {
+                                setVisible(true);
+                            }} key={image_url.id + 300} className="other-pic-item">
                                 <img className="img-raised rounded img-fluid" src={image_url.url}
                                      alt={`Property at ${property.town}`}/>
                             </div>
@@ -59,7 +63,9 @@ const ViewSpace = ({property}) => {
             <div>
                 <Viewer
                     visible={visible}
-                    onClose={() => { setVisible(false); } }
+                    onClose={() => {
+                        setVisible(false);
+                    }}
                     images={
                         property.other_images_url.map((image_url) => {
                             return {
@@ -82,7 +88,8 @@ const ViewSpace = ({property}) => {
                         <div className="profile">
                             <div className="profile-top">
                                 <div className="profile-img">
-                                    <img className="img-fluid" src={require('../../assets/img/profile.png')}
+                                    <img className="img-fluid rounded-img"
+                                         src={profile_img}
                                          alt={`${property.username}'s profile`}/>
                                 </div>
                                 <div className="profile-username">
@@ -111,13 +118,12 @@ const ViewSpace = ({property}) => {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     );
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    property: selectProperty(ownProps.match.params.uid)(state)
+    property: selectProperty(ownProps.match.params.uid)(state),
 });
 
 export default connect(mapStateToProps)(ViewSpace);
