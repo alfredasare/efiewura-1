@@ -88,10 +88,7 @@ const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, delete
             }, 2000);
 
             console.log({displayName, email, contact, address, profile_img, id});
-        } else {
-            alert('something is wrong');
         }
-
     };
 
     const handleChange = event => {
