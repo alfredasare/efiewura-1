@@ -1,13 +1,10 @@
 import React from "react";
 import './hosting-complete.styles.scss';
-import Navbar from "../../components/navbar/navbar.component";
-import Footer from "../../components/footer/footer.component";
 
 const HostingComplete = () => {
 
     return (
         <>
-            <Navbar/>
             <section style={{marginTop: '70px'}} className="container" id="owners-details">
                 <div className="row">
                     <div className="col-xs-12 offset-xs-0 col-md-6 offset-md-3">
@@ -176,7 +173,6 @@ const HostingComplete = () => {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     );
 };

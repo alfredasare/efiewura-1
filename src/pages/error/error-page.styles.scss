@@ -1,4 +1,6 @@
 #err-main-div {
+  font-size: 16px;
+  font-family: Roboto, serif;
   text-align: justify-all;
   background: #004D44;
   color: white;
@@ -7,13 +9,13 @@
   height: 100vh;
   h1 {
     margin: 0 0 10px;
-    font-size: 5rem;
+    font-size: 9em;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 35px;
   }
   h3 {
-    font-size: 1.5rem;
+    font-size: 25px;
     margin-bottom: 30px;
   }
   button {
@@ -32,6 +34,7 @@
   }
 }
 .error {
+  width: 50%;
   text-align: center;
   margin: auto;
   img {
@@ -39,8 +42,7 @@
   }
 }
 .error-message {
-  text-align: center;
-  margin-top: 30px;
+  margin: auto;
 }
 h2 {
   margin: 0 0 10px;
@@ -51,10 +53,3 @@ h3 {
 .main-col {
   margin: auto;
 }
-@media only screen and (min-width: 600px) {
-  .error-message{
-    margin: auto;
-    text-align: left;
-  }
-}
-

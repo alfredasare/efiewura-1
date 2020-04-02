@@ -13,7 +13,7 @@ const DashboardAdCard = ({property, removePropertyStart, allProperties}) => {
     // date calculator //
     const daysBetween = (date1, date2) => {
         //Get 1 day in milliseconds
-        // let one_day = 1000 * 60 * 60 * 24;
+        let one_day = 1000 * 60 * 60 * 24;
 
         // Convert both dates to milliseconds
         let date1_ms = date1.getTime();
@@ -23,11 +23,11 @@ const DashboardAdCard = ({property, removePropertyStart, allProperties}) => {
         let difference_ms = date2_ms - date1_ms;
         //take out milliseconds
         difference_ms = difference_ms / 1000;
-        // let seconds = Math.floor(difference_ms % 60);
+        let seconds = Math.floor(difference_ms % 60);
         difference_ms = difference_ms / 60;
-        // let minutes = Math.floor(difference_ms % 60);
+        let minutes = Math.floor(difference_ms % 60);
         difference_ms = difference_ms / 60;
-        // let hours = Math.floor(difference_ms % 24);
+        let hours = Math.floor(difference_ms % 24);
         // return days + ' days, ' + hours + ' hours, ' + minutes + ' minutes, and ' + seconds + ' seconds';
         return Math.floor(difference_ms / 24) + 1;
     //    add one up to round up the remaining hours and minutes ...
