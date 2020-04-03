@@ -80,8 +80,8 @@ const SignUp = ({signUpStart, error, loader}) => {
 
         if (isValid) {
             console.log({displayName, email, password, contact, address, profile_img});
+            signUpStart({displayName, email, password, contact, address, profile_img});
         }
-        signUpStart({displayName, email, password, contact, address, profile_img});
     };
 
     const handleChange = event => {

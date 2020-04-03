@@ -126,11 +126,9 @@ const ProvideSpace = ({currentUser, propertyStorageUploadStart, regions, distric
             setError();
 
             if (isValid) {
-                // history.push('/uploading-space');
-                // propertyStorageUploadStart(propertyDetails);
+                history.push('/uploading-space');
+                propertyStorageUploadStart(propertyDetails);
                 console.log(propertyDetails);
-            } else {
-                alert('something is wrong');
             }
         }
     };
