@@ -59,7 +59,6 @@ const LoginPage = ({googleSignInStart, emailSignInStart, error, loader}) => {
         setCredentials({...userCredentials, [name]: value});
     };
 
-    // TODO: add function
     const showPass = (event) => {
         let pass;
         if (event.target.name === 'password'){
@@ -73,6 +72,7 @@ const LoginPage = ({googleSignInStart, emailSignInStart, error, loader}) => {
             pass.type = 'password';
         }
     };
+
 
     return (
         <>
@@ -97,10 +97,10 @@ const LoginPage = ({googleSignInStart, emailSignInStart, error, loader}) => {
                                 <FormInputText handleChange={handleChange} type='password' name='password' id='password'
                                                label='Password' onBlur={validateLoginPassword}/>
                                 <p className='red o-100'>{errorMessages.passwordError}</p>
-                                {/*TODO: add component*/}
                                 <div style={{marginBottom:'20px'}}>
                                     <PasswordToggle unHide={showPass} toggleName='password'/>
                                 </div>
+
 
                                 <div style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
                                     {

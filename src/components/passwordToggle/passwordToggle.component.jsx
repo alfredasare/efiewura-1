@@ -1,4 +1,3 @@
-// TODO: create this component
 import React from "react";
 
 
@@ -11,4 +10,3 @@ const PasswordToggle = ({unHide, toggleName}) => {
 };
 
 export default PasswordToggle;
-

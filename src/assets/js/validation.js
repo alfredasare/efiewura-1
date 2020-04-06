@@ -209,8 +209,7 @@ export const validateSpecialPassword = (event, mainEvent, name) => {
     if (password.trim() === '') {
         setInvalid(field, 'Please enter password', error);
         return false;
-        // TODO: remove case 2 validation
-    } else if (password.length < 7) {
+    }else if (password.length < 7) {
         setInvalid(field, 'Password should be at least 7 characters', error);
         return false;
     } else {
@@ -544,7 +543,6 @@ export const loginValidate = event => {
 export const signUpValidate = event => {
     return validateName(undefined, event, 'displayName') && validateMail(undefined, event, 'email') &&
         validateSpecialPassword(undefined, event, 'password') && validateConfirmPassword(undefined, event, 'confirmPassword')
-        && validateContact(undefined, event, 'contact') && validateAddress(undefined, event, 'address');
 };
 
 
@@ -555,6 +553,7 @@ export const provideSpaceValidate = event => {
         validateDescription(undefined, event, 'description')
         && validateRegion(event, 'region') && validateTown(undefined, event, 'town') &&
         validateImages(undefined, event, 'property_images') &&
+        validateRadioButtons(event, 'ad_type', 'adTypeError') &&
         validatePrice(undefined, event, 'price') &&
         validateRadioButtons(event, 'negotiation_status', 'negotiationError');
 };
@@ -569,6 +568,5 @@ export const editSpaceValidate = event => {
 };
 
 export const editProfileValidate = event => {
-    return validateName(undefined, event, 'displayName') && validateMail(undefined, event, 'email')
-        && validateContact(undefined, event, 'contact') && validateAddress(undefined, event, 'address');
+    return validateName(undefined, event, 'displayName') && validateMail(undefined, event, 'email');
 };
