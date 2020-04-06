@@ -31,19 +31,19 @@ const Navbar = ({currentUser, signOutStart, loader}) => {
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                            <NavLink activeClassName="nav-active" className="nav-link"
                                      data-toggle="collapse" exact={true} to="/">
                                 Home
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                            <NavLink activeClassName="nav-active" className="nav-link"
                                      data-toggle="collapse" to="/about">
                                 About
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                            <NavLink activeClassName="nav-active" className="nav-link"
                                      data-toggle="collapse" to="/contact">
                                 Contact
                             </NavLink>
@@ -51,7 +51,7 @@ const Navbar = ({currentUser, signOutStart, loader}) => {
                         {
                             currentUser ?
                                 <li className="nav-item">
-                                    <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                                    <NavLink activeClassName="nav-active" className="nav-link"
                                              data-toggle="collapse" to="/provide-space">
                                         Provide space
                                     </NavLink>
@@ -59,7 +59,7 @@ const Navbar = ({currentUser, signOutStart, loader}) => {
                                 <></>
                         }
                         <li className="nav-item">
-                            <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                            <NavLink activeClassName="nav-active" className="nav-link"
                                      data-toggle="collapse" to="/search">
                                 Find Space
                             </NavLink>
@@ -67,7 +67,7 @@ const Navbar = ({currentUser, signOutStart, loader}) => {
                         {
                             currentUser ?
                                 <li className="nav-item">
-                                    <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                                    <NavLink activeClassName="nav-active" className="nav-link"
                                              data-toggle="collapse" to="/dashboard">
                                         Dashboard
                                     </NavLink>
@@ -77,11 +77,11 @@ const Navbar = ({currentUser, signOutStart, loader}) => {
                         <li className="nav-item">
                             {
                                 currentUser ?
-                                    <Link className="nav-link navbar-toggler" onClick={signOutStart}
+                                    <Link className="nav-link" onClick={signOutStart}
                                           data-toggle="collapse" to="/login">
                                         {loader ? <LoadingSpinner/> : <>Sign Out</>}
                                     </Link>
-                                    : <NavLink activeClassName="nav-active" className="nav-link navbar-toggler"
+                                    : <NavLink activeClassName="nav-active" className="nav-link"
                                                data-toggle="collapse" to="/login">
                                         Sign In
                                     </NavLink>
@@ -89,7 +89,7 @@ const Navbar = ({currentUser, signOutStart, loader}) => {
                         </li>
                         {
                             currentUser ? <></> : <li className="nav-item">
-                                <NavLink className="nav-link get-started-link navbar-toggler"
+                                <NavLink className="nav-link get-started-link"
                                          data-toggle="collapse" to="/signup">
                                     Put up an ad
                                 </NavLink>
