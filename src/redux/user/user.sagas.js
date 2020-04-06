@@ -8,7 +8,7 @@ import {
     signOutFailure,
     signOutSuccess,
     signUpFailure,
-    signUpSuccess
+    signUpSuccess, updateProfileImagesFailure, updateProfileImagesStart, updateProfileImagesSuccess
 } from "./user.actions";
 import {
     auth,
@@ -95,11 +95,17 @@ export function* onCheckUserSession() {
 
 // SIGN UP
 export function* signUp({payload: {displayName, email, password, contact, address, profile_img}}) {
+    let downloadUrl = '';
     try {
         const {user} = yield auth.createUserWithEmailAndPassword(email, password);
-        const storageRef = storage.ref(`profile-images/${Date.now()}_${profile_img.name}`);
-        const uploadTask = yield storageRef.put(profile_img);
-        const downloadUrl = yield uploadTask.ref.getDownloadURL();
+        const storageRef = storage.ref(`profile-images/${Date.now()}_${displayName}`);
+        if (typeof profile_img === 'object') {
+            const uploadTask = yield storageRef.put(profile_img);
+            downloadUrl = yield uploadTask.ref.getDownloadURL();
+        } else {
+            const uploadTask = yield storageRef.putString(profile_img, 'base64');
+            downloadUrl = yield uploadTask.ref.getDownloadURL();
+        }
         yield put(signUpSuccess({user, additionalData: {displayName, contact, address, profile_img: downloadUrl  }}));
     } catch (error) {
         yield put(signUpFailure(error));
@@ -130,14 +136,17 @@ export function* editProfile ({payload: {displayName, email, contact, address, p
             downloadUrl = yield uploadTask.ref.getDownloadURL();
         }
 
-        const response = yield firestore.collection("users").doc(id).update({
+        yield firestore.collection("users").doc(id).update({
             displayName,
             email,
             contact,
             address,
             profile_img: downloadUrl ? downloadUrl : profile_img
         });
-        yield put(editUserSuccess("Updated Successfully"));
+        yield put(editUserSuccess("Profile updated successfully"));
+        if (downloadUrl) {
+            yield put(updateProfileImagesStart({id, downloadUrl}));
+        }
     } catch (error) {
         yield put(editUserFailure(error));
     }
@@ -162,6 +171,27 @@ export function* onUserProfileImageDeleteStart() {
     yield takeLatest(UserActionTypes.DELETE_USER_PROFILE_IMAGE_START, deleteProfileImage);
 }
 
+//  UPDATE URLS
+export function* updateProfileImagesUrls({payload: {id, downloadUrl}}) {
+    try {
+        let batch = firestore.batch();
+        const propertiesRef = firestore.collection('properties');
+        const snapshot = yield propertiesRef.where("user_id", "==", id).get();
+        for (let doc of snapshot.docs) {
+            const propertyRef = firestore.collection('properties').doc(doc.id);
+            yield batch.update(propertyRef, {profile_img: downloadUrl});
+            yield batch.commit();
+        }
+        yield put(updateProfileImagesSuccess("Urls changed successfully"));
+    } catch (error) {
+        yield put(updateProfileImagesFailure(error));
+    }
+}
+
+export function* onUpdateUrls() {
+    yield takeLatest(UserActionTypes.UPDATE_PROPERTY_PROFILE_IMAGES_START, updateProfileImagesUrls);
+}
+
 
 export function* userSagas() {
     yield all([
@@ -172,6 +202,7 @@ export function* userSagas() {
         call(onSignUpStart),
         call(onSignUpSuccess),
         call(onEditUserProfileStart),
-        call(onUserProfileImageDeleteStart)
+        call(onUserProfileImageDeleteStart),
+        call(onUpdateUrls)
     ]);
 }

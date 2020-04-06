@@ -1,6 +1,5 @@
 import React from "react";
 import './contact.styles.scss';
-import './animate.css';
 import CustomButton from "../../components/custom-button/custom-button.component";
 import Navbar from "../../components/navbar/navbar.component";
 
@@ -12,7 +11,7 @@ const ContactPage = () => {
             <Navbar/>
             <div className='cover-img'>
                 <div>
-                    <h2>Contact Us</h2>
+                    <h1>Contact Us</h1>
                     <p>Want to get in touch? We'd love to hear from you. Here's how you can reach us... </p>
                 </div>
 
@@ -31,22 +30,20 @@ const ContactPage = () => {
                         <h5>Reach us on social media</h5>
                         <p>Follow, send messages, comment and like our social media pages.</p>
                         <div className='social'>
-                            <a href="#"><i className='fa fa-facebook'/></a>
-                            <a href="#"><i className='fa fa-instagram'/></a>
-                            <a href="#"><i className='fa fa-twitter'/></a>
+                            <a href="/#"><i className='fa fa-facebook'/></a>
+                            <a rel="noopener noreferrer" href="https://www.instagram.com/efiawura/" target="_blank"><i className='fa fa-instagram'/></a>
+                            <a rel="noopener noreferrer" href="https://twitter.com/efiawura" target="_blank"><i className='fa fa-twitter'/></a>
                         </div>
                     </div>
                     <div className='col-xs-12 col-sm-12 col-md-4 col-lg-3 card location'>
                         <i className='fa fa-map-marker animated jello delay-2s'/>
                         <h5>Locate Efiewura</h5>
-                        <p>Tema Community 12</p>
-                        <p>Peregrino Aryee street</p>
-                        <p>House no. 12</p>
+                        <p>Accra</p>
                         <div className='call-header'>
                             <h6> Or call</h6>
                             <i className='fa fa-phone'/>
                         </div>
-                        <p className='bolden'>+233 233 233 233</p>
+                        <p className='bolden'>+233 54 545 8603</p>
                     </div>
                 </div>
             </div>

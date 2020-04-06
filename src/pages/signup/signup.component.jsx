@@ -18,8 +18,12 @@ import {
 } from "../../assets/js/validation";
 import Navbar from "../../components/navbar/navbar.component";
 import Footer from "../../components/footer/footer.component";
+import PasswordToggle from "../../components/passwordToggle/passwordToggle.component";
 
 const SignUp = ({signUpStart, error, loader}) => {
+
+    const defaultImage = require('../../assets/img/avatar-placeholder_v0ecjm.png');
+    const editedDefaultImageUrl = defaultImage.replace("data:image/png;base64,", "");
 
     const [userCredentials, setUserCredentials] = useState({
         displayName: '',
@@ -28,7 +32,7 @@ const SignUp = ({signUpStart, error, loader}) => {
         confirmPassword: '',
         contact: '',
         address: '',
-        profile_img: ''
+        profile_img: editedDefaultImageUrl,
     });
 
     const [errorMessages, setErrorMessages] = useState({
@@ -79,7 +83,6 @@ const SignUp = ({signUpStart, error, loader}) => {
         setError();
 
         if (isValid) {
-            console.log({displayName, email, password, contact, address, profile_img});
             signUpStart({displayName, email, password, contact, address, profile_img});
         }
     };
@@ -109,6 +112,21 @@ const SignUp = ({signUpStart, error, loader}) => {
             ...userCredentials,
             [name]: file
         });
+    };
+
+    // TODO: add function
+    const showPass = (event) => {
+        let pass;
+        if (event.target.name === 'password'){
+            pass = document.getElementById('password');
+        }else if(event.target.name === 'confirmPassword'){
+            pass = document.getElementById('confirmPassword');
+        }
+        if (pass.type === 'password'){
+            pass.type = 'text';
+        }else{
+            pass.type = 'password';
+        }
     };
 
     return (
@@ -157,7 +175,7 @@ const SignUp = ({signUpStart, error, loader}) => {
                                 <div className="upload-text">Click here to upload a profile image</div>
                             </label>
                             {
-                                profile_img
+                                profile_img.name
                                     ? <div className="uploaded-images">
                                         <h5>You uploaded:</h5>
                                         <ul>
@@ -169,12 +187,16 @@ const SignUp = ({signUpStart, error, loader}) => {
 
                             <FormInputText handleChange={handleChange} type='password' name='password' id='password'
                                            label='Password' onBlur={validateSignUpPassword}/>
-                            <p className='red o-100'>{errorMessages.passwordError}</p>
+                                <p className='red o-100'>{errorMessages.passwordError}</p>
+                            {/*TODO: add component*/}
+                            <PasswordToggle unHide={showPass} toggleName='password'/>
 
                             <FormInputText handleChange={handleChange} type='password' name='confirmPassword'
                                            id='confirmPassword'
                                            label='Confirm Password' onBlur={validateSignUpConfirmPassword}/>
                             <p className='red o-100'>{errorMessages.confirmPasswordError}</p>
+                            {/*TODO: add component*/}
+                            <PasswordToggle unHide={showPass} toggleName='confirmPassword'/>
 
                             <FormInputText handleChange={handleChange} type='tel' name='contact' id='contact'
                                            label='Contact' onBlur={validateSignUpContact}/>

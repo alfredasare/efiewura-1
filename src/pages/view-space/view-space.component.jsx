@@ -9,8 +9,6 @@ import Footer from "../../components/footer/footer.component";
 const ViewSpace = ({property}) => {
 
     const [visible, setVisible] = useState(false);
-    const defaultProfile = 'https://firebasestorage.googleapis.com/v0/b/efiewura-db-60044.appspot.com/o/site-images%2Favatar-placeholder_v0ecjm.png?alt=media&token=ec952423-c148-409e-ab6e-15bf295424bd';
-    const profile_img = property.profile_img ? property.profile_img : defaultProfile;
 
     return (
         <>
@@ -92,7 +90,7 @@ const ViewSpace = ({property}) => {
                             <div className="profile-top">
                                 <div className="profile-img">
                                     <img className="img-fluid rounded-img"
-                                         src={profile_img}
+                                         src={property.profile_img}
                                          alt={`${property.username}'s profile`}/>
                                 </div>
                                 <div className="profile-username">

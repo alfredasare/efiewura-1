@@ -1,11 +1,16 @@
 import React, {useState} from "react";
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import FormInputText from "../../components/form-input-text/form-input-text.component";
 import CustomButtonsContainer from "../../components/custom-buttons-container/custom-buttons-container.component";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import {createStructuredSelector} from "reselect";
-import {selectCurrentUser, selectError, selectUpdatingUser} from "../../redux/user/user.selectors";
+import {
+    selectCurrentUser,
+    selectError,
+    selectSuccessMessage,
+    selectUpdatingUser
+} from "../../redux/user/user.selectors";
 import './edit-profile.styles.scss';
 import {deleteProfileImageStart, editUserStart} from "../../redux/user/user.actions";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
@@ -14,24 +19,24 @@ import Footer from "../../components/footer/footer.component";
 import {
     editProfileValidate,
     errorObject,
-    provideSpaceValidate,
     validateAddress,
     validateContact,
     validateMail,
     validateName
 } from "../../assets/js/validation";
+import SuccessTick from "../../components/success-tick/success-tick.component";
 
-const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, deleteProfileImageStart, history}) => {
+const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, deleteProfileImageStart, successMessage}) => {
 
-    const default_img = 'https://firebasestorage.googleapis.com/v0/b/efiewura-db-60044.appspot.com/o/site-images%2Favatar-placeholder_v0ecjm.png?alt=media&token=ec952423-c148-409e-ab6e-15bf295424bd';
-    const temp_profile_image = currentUser.profile_img ? currentUser.profile_img : default_img;
+    const oldProfileImage = currentUser.profile_img;
+    const [updateButtonVisibility, setUpdateButtonVisibility] = useState(true);
 
     const [userCredentials, setUserCredentials] = useState({
         displayName: currentUser.displayName,
         email: currentUser.email,
         contact: currentUser.contact ? currentUser.contact : '',
         address: currentUser.address ? currentUser.address : '',
-        profile_img: temp_profile_image,
+        profile_img: currentUser.profile_img,
         id: currentUser.id
     });
 
@@ -72,28 +77,24 @@ const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, delete
 
     const handleSubmit = event => {
         event.preventDefault();
+        setUpdateButtonVisibility(false);
 
         const isValid = editProfileValidate(event);
         setError();
 
         if (isValid) {
             if (typeof profile_img === "object") {
-                deleteProfileImageStart(temp_profile_image);
+                deleteProfileImageStart(oldProfileImage);
             }
 
             updateProfileStart({displayName, email, contact, address, profile_img, id});
-
-            setTimeout(() => {
-                history.push(`/dashboard`);
-            }, 2000);
-
-            console.log({displayName, email, contact, address, profile_img, id});
         }
     };
 
     const handleChange = event => {
         const {name, value} = event.target;
         setUserCredentials({...userCredentials, [name]: value});
+        setUpdateButtonVisibility(true);
 
         if (event.target.name === 'displayName') {
             validatePropertyName(event);
@@ -113,6 +114,7 @@ const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, delete
             ...userCredentials,
             [name]: file
         });
+        setUpdateButtonVisibility(true);
     };
 
     return (
@@ -133,9 +135,11 @@ const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, delete
                               className="form-horizontal custom-form" noValidate>
                             {
                                 error ?
-                                    <h5 style={{color: 'red'}}>Something went wrong. Make sure you typed in the right
-                                        email
-                                        and password</h5> : <></>
+                                    <h5 className="update-message" style={{color: 'red'}}>Something went wrong. Check your internet connect</h5> : <></>
+                            }
+                            {
+                                successMessage ?
+                                    <h5 className="update-message" style={{color: 'teal'}}>{successMessage}</h5> : <></>
                             }
 
                             <div className="img-edit-preview">
@@ -173,10 +177,14 @@ const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, delete
 
                             <CustomButtonsContainer>
                                 {
-                                    isUpdating ? <LoadingSpinner/> : <CustomButton type='submit'>Update</CustomButton>
+                                    isUpdating ? <LoadingSpinner/> : updateButtonVisibility ? <CustomButton type='submit'>Update</CustomButton> : <SuccessTick/>
                                 }
                                 <CustomButton type='reset' inverted="true">Reset</CustomButton>
                             </CustomButtonsContainer>
+
+                            <div className="dashboard-link">
+                                <Link to={'/dashboard'}>Back To Dashboard</Link>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -189,6 +197,7 @@ const EditProfile = ({currentUser, error, isUpdating, updateProfileStart, delete
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     error: selectError,
+    successMessage: selectSuccessMessage,
     isUpdating: selectUpdatingUser,
 });
 
@@ -197,4 +206,4 @@ const mapDispatchToProps = dispatch => ({
     deleteProfileImageStart: imageUrl => dispatch(deleteProfileImageStart(imageUrl)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditProfile));
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

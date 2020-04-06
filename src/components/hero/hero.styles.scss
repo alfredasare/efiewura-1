@@ -1,0 +1,50 @@
+#hero {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+  background: url("../../assets/img/4-cover.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: rgba(255, 255, 255, 1.00);
+
+  #hero-social-icons {
+    display: flex;
+    flex-flow: column nowrap;
+    font-size: 1.5em;
+
+    a {
+      color: var(--color-white);
+      margin-top: 25px;
+      opacity: 0.6;
+      transition: opacity 0.3s ease-in;
+
+      &:hover {
+        opacity: 1.0;
+      }
+    }
+  }
+
+  #hero-message {
+    width: 50%;
+    height: 30vh;
+
+    h1 {
+      font-size: 2.5em;
+
+      @media screen and (max-width: 480px){
+        font-size: 1.6em;
+      }
+    }
+
+    p {
+      font-size: 1.5em;
+      margin-top: 45px;
+      line-height: 2em;
+
+      @media screen and (max-width: 480px){
+        font-size: 1.2em;
+      }
+    }
+  }
+}
